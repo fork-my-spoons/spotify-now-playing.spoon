@@ -32,9 +32,9 @@ hs.loadSpoon("spotify-current-song")
 spoon['spotify-current-song']:start()
 spoon['spotify-current-song']:bindHotkeys(
   {
-    next={{"alt"}, "."},
-    prev={{"alt"}, ","},
-    playpause={{"alt"}, "/"}
+    next={ {"alt"}, "."},
+    prev={ {"alt"}, ","},
+    playpause={ {"alt"}, "/"}
   }
 )
 ```
