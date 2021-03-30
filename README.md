@@ -1,6 +1,6 @@
 # Spotify Mini Player
 
-Menu bar app which shows currently playing song on Spotify:
+A menu bar app which shows currently playing song on Spotify:
 
 Playing: 
 
@@ -22,7 +22,7 @@ Click on the bar toggles the playback. It is also possible to setup shortcuts to
 
       ```brew install hammerspoon --cask```
 
- - download [gitlab-merge-requests.spoon](https://github.com/fork-my-spoons/gitlab-merge-requests.spoon/raw/master/gitlab-merge-requests.spoon.zip), unzip and double click on a .spoon file. It will be installed under `~/.hammerspoon/Spoons` folder.
+ - download [spotify-current-song.spoon](https://github.com/fork-my-spoons/gitlab-merge-requests.spoon/raw/master/gitlab-merge-requests.spoon.zip), unzip and double click on a .spoon file. It will be installed under `~/.hammerspoon/Spoons` folder.
  
  - open ~/.hammerspoon/init.lua and add the following snippet, adding your parameters:
 
