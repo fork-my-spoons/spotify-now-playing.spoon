@@ -2,7 +2,7 @@ local obj = {}
 obj.__index = obj
 
 -- Metadata
-obj.name = "spotify-current-cong"
+obj.name = "Spotify Now Playing"
 obj.version = "1.0"
 obj.author = "Pavel Makhov"
 obj.homepage = "https://fork-my-spoons.github.io/"
