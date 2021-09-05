@@ -1,4 +1,4 @@
-# Spotify Mini Player
+# Spotify Now Playing
 
 <p align="center">
   <a href="https://github.com/fork-my-spoons/spotify-now-playing.spoon/actions">
