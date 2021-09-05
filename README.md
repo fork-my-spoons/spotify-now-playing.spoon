@@ -13,12 +13,16 @@ A menu bar app which shows currently playing song on Spotify:
 
 Playing: 
 
-<img alt="screenshot" src="https://github.com/fork-my-spoons/spotify-current-song.spoon/raw/main/screenshots/screenshot.png">
-
+<p align="center">
+  <img alt="screenshot" src="https://github.com/fork-my-spoons/spotify-current-song.spoon/raw/main/screenshots/screenshot.png">
+</p>
+  
 Paused:
-
-<img alt="screenshot2" src="https://github.com/fork-my-spoons/spotify-current-song.spoon/raw/main/screenshots/screenshot2.png">
-
+  
+<p align="center">
+  <img alt="screenshot2" src="https://github.com/fork-my-spoons/spotify-current-song.spoon/raw/main/screenshots/screenshot2.png">
+</p>
+  
 Click on the bar toggles the playback. It is also possible to setup shortcuts to play next/previous track and toggle the playback - see below.
 
 # Installation
