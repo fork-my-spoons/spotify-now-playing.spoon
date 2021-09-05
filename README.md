@@ -31,7 +31,7 @@ Click on the bar toggles the playback. It is also possible to setup shortcuts to
 
       ```brew install hammerspoon --cask```
 
- - download [spotify-current-song.spoon](https://github.com/fork-my-spoons/spotify-now-playing.spoon/releases/latest/download/spotify-now-playing.spoon.zip), unzip and double click on a .spoon file. It will be installed under `~/.hammerspoon/Spoons` folder.
+ - download [spotify-now-playing.spoon](https://github.com/fork-my-spoons/spotify-now-playing.spoon/releases/latest/download/spotify-now-playing.spoon.zip), unzip and double click on a .spoon file. It will be installed under `~/.hammerspoon/Spoons` folder.
  
  - open ~/.hammerspoon/init.lua and add the following snippet, adding your parameters:
 
