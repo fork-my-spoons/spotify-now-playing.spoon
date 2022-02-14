@@ -41,16 +41,15 @@ Click on the bar toggles the playback. It is also possible to setup shortcuts to
 
 ```lua
 -- Spotify current song
-hs.loadSpoon("spotify-current-song")
-spoon['spotify-current-song']:start()
-spoon['spotify-current-song']:bindHotkeys(
+hs.loadSpoon("spotify-now-playing")
+spoon['spotify-now-playing']:start()
+spoon['spotify-now-playing']:bindHotkeys(
   {
     next={ {"alt"}, "."},
     prev={ {"alt"}, ","},
     playpause={ {"alt"}, "/"}
   }
 )
-```
 
 The config above sets up the ollowing shortcuts:
 
