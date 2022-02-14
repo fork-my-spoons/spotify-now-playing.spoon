@@ -50,6 +50,7 @@ spoon['spotify-now-playing']:bindHotkeys(
     playpause={ {"alt"}, "/"}
   }
 )
+```
 
 The config above sets up the ollowing shortcuts:
 
