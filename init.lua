@@ -3,25 +3,29 @@ obj.__index = obj
 
 -- Metadata
 obj.name = "Spotify Now Playing"
-obj.version = "1.0"
+obj.version = "1.2"
 obj.author = "Pavel Makhov"
 obj.homepage = "https://fork-my-spoons.github.io/"
 obj.license = "MIT - https://opensource.org/licenses/MIT"
 
 obj.spotify_indicator = nil
-obj.timer = nil
 obj.iconPath = hs.spoons.resourcePath("icons")
 obj.playIcon = nil
 obj.pauseIcon = nil
+local timer = nil
 
-function refreshWidget()
-    if (hs.spotify.isPlaying()) then
-        obj.spotify_indicator:setIcon(obj.playIcon, false)
-    else
-        obj.spotify_indicator:setIcon(obj.pauseIcon, false)
-    end
-    if (hs.spotify.getCurrentArtist() ~= nil and hs.spotify.getCurrentTrack() ~= nil) then
-        obj.spotify_indicator:setTitle(hs.spotify.getCurrentArtist() .. ' - ' .. hs.spotify.getCurrentTrack())
+local function refreshWidget()
+    if hs.spotify.isRunning() then
+        if hs.spotify.isPlaying() then
+            obj.spotify_indicator:setIcon(obj.playIcon, false)
+        else
+            obj.spotify_indicator:setIcon(obj.pauseIcon, false)
+        end
+        local artist = hs.spotify.getCurrentArtist()
+        local track = hs.spotify.getCurrentTrack()
+        if artist and track then
+            obj.spotify_indicator:setTitle(artist .. ' - ' .. track)
+        end
     end
 end
 
@@ -40,16 +44,45 @@ function obj:playpause()
     refreshWidget()
 end
 
-function obj:init(par)
-    self.spotify_indicator = hs.menubar.new()
-    self.playIcon = hs.image.imageFromPath(obj.iconPath .. '/Spotify_Icon_RGB_Green.png'):setSize({w=16,h=16})
-    self.pauseIcon = hs.image.imageFromPath(obj.iconPath .. '/Spotify_Icon_RGB_White.png'):setSize({w=16,h=16})
+local function setupTimer()
+    timer = hs.timer.new(1, refreshWidget)
+end
 
-    self.spotify_indicator:setClickCallback(function() 
-        hs.spotify.playpause()
-        refreshWidget() 
+local function startTimer()
+    if not timer:running() then
+        timer:start()
+    end
+end
+
+local function stopTimer()
+    if timer:running() then
+        timer:stop()
+    end
+end
+
+function obj:init()
+    self.playIcon = hs.image.imageFromPath(obj.iconPath .. '/Spotify_Icon_RGB_Green.png'):setSize({w = 16, h = 16})
+    self.pauseIcon = hs.image.imageFromPath(obj.iconPath .. '/Spotify_Icon_RGB_White.png'):setSize({w = 16, h = 16})
+    
+    app_watcher = hs.application.watcher.new(function(name, event, app)
+        if name == 'Spotify' then
+            if event == hs.application.watcher.terminated then
+                print("Spotify terminated")
+                stopTimer()
+                if self.spotify_indicator then
+                    self.spotify_indicator:removeFromMenuBar()
+                end
+            elseif event == hs.application.watcher.launched then
+                print("Spotify launched")
+                setupTimer()
+                startTimer()
+                self.spotify_indicator = hs.menubar.new():setClickCallback(function()
+                    hs.spotify.playpause()
+                    refreshWidget()
+                end)
+            end
+        end
     end)
-    self.timer = hs.timer.new(1, refreshWidget)
 end
 
 function obj:bindHotkeys(mapping)
@@ -57,17 +90,26 @@ function obj:bindHotkeys(mapping)
         next = hs.fnutils.partial(self.next, self),
         prev = hs.fnutils.partial(self.prev, self),
         playpause = hs.fnutils.partial(self.playpause, self),
-      }
-      hs.spoons.bindHotkeysToSpec(spec, mapping)
-      return self
+    }
+    hs.spoons.bindHotkeysToSpec(spec, mapping)
+    return self
 end
 
 function obj:start()
-    self.timer:start()
+    if hs.spotify.isRunning() then
+        print("Spotify is running")
+        self.spotify_indicator = hs.menubar.new():setClickCallback(function()
+            hs.spotify.playpause()
+            refreshWidget()
+        end)
+        startTimer()
+    end
+    app_watcher:start()
 end
 
 function obj:stop()
-    self.timer:stop()
+    stopTimer()
+    app_watcher:stop()
 end
 
 return obj
